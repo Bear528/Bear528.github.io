@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hexo美化</title>
+    <url>/2022/03/20/Hexo%E7%BE%8E%E5%8C%96/</url>
+    <content><![CDATA[<h2 id="主题更换"><a href="#主题更换" class="headerlink" title="主题更换"></a>主题更换</h2><ol>
+<li>说明<blockquote>
+<p>网上关于更换主题的资源的资源很多，但是大部分是基于Mac系统的，Windows系统使用常常会报错</p>
+<p>本文是基于Win10进行主题更换</p>
+</blockquote>
+</li>
+<li>下载主题</li>
+</ol>
+<ul>
+<li>Windows以管理员身份打开命令提示符</li>
+<li>在<strong>命令提示符</strong>中使用<strong>DOS命令</strong>进入<strong>Blog所在的文件目录</strong><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Windows\system32&gt;e:      //进入E盘，我的Blog目录在E盘</span><br><span class="line">E:\&gt;cd blog         //进入blog目录</span><br><span class="line">E:\blog&gt;chdir       //查看路径，判断是否正确</span><br><span class="line">E:\blog&gt;git clone https://github.com/luuman/hexo-theme-spfk.git themes/spfk     //下载主题，保存在themes文件的spfk文件中，spfk是自动生成的</span><br><span class="line">E:\blog\themes\spfk&gt;git pull        //进入spfk目录，检查更新spfk</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="3">
+<li>更换主题<blockquote>
+<p>站点配置文件：blog目录下的**_config.yml**</p>
+<p>主题配置文件：E:\blog\themes\spfk下的**_config.yml**</p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li>打开站点配置文件，搜索<strong>theme</strong>，将其更换为<strong>spfk</strong></li>
+<li>同时，可以修改语言，网站名称，签名等</li>
+<li>具体的美化，修改头像，添加背景图片，鼠标动画等都在主题配置文件中进行</li>
+</ul>
+<hr>
+<h2 id="添加背景图片"><a href="#添加背景图片" class="headerlink" title="添加背景图片"></a>添加背景图片</h2><blockquote>
+<p>在高版本next中，添加背景图片不能使用过往方法</p>
+<p>需要自建文件，自定义设置</p>
+</blockquote>
+<ol>
+<li>创建文件</li>
+</ol>
+<ul>
+<li>直接在文件夹下面创建</li>
+<li>在命令提示符中创建</li>
+<li>在git中创建<blockquote>
+<p>我是在git中创建,在blog的根目录下打开Git Bash here，输入下列命令</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd source       //进入根目录下source文件夹</span><br><span class="line">mkdir _data     //创建_data文件夹</span><br><span class="line">cd _data        //进入_data文件夹</span><br><span class="line">touch styles.styl       //创建styles.styl文件</span><br></pre></td></tr></table></figure></li>
+<li>打开styles.styl文件，输入下列内容，保存<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">body </span><br><span class="line">&#123;</span><br><span class="line"> 	background: url(/images/background.jpg);</span><br><span class="line"> 	background-repeat: no-repeat;</span><br><span class="line">    background-attachment: fixed;</span><br><span class="line">    background-position: 50% 50%;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>打开站点配置文件，搜索style并将最后一个的#取消，效果如下：<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">custom_file_path:</span><br><span class="line">  #head: source/_data/head.swig</span><br><span class="line">  #header: source/_data/header.swig</span><br><span class="line">  #sidebar: source/_data/sidebar.swig</span><br><span class="line">  #postMeta: source/_data/post-meta.swig</span><br><span class="line">  #postBodyEnd: source/_data/post-body-end.swig</span><br><span class="line">  #footer: source/_data/footer.swig</span><br><span class="line">  #bodyEnd: source/_data/body-end.swig</span><br><span class="line">  #variable: source/_data/variables.styl</span><br><span class="line">  #mixin: source/_data/mixins.styl</span><br><span class="line">  style: source/_data/styles.styl</span><br></pre></td></tr></table></figure></li>
+<li>在根目录下打开git bash here，依次输入hexo clean, hexo s即可在本地查看</li>
+<li>本地确认无误，即可上传仓库</li>
+</ul>
+<hr>
+<h2 id="设置不透明度"><a href="#设置不透明度" class="headerlink" title="设置不透明度"></a>设置不透明度</h2><ol>
+<li>按照下列文件目录，找到index.styl文件<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">E:\blog\themes\next\source\css\_schemes\Gemini</span><br></pre></td></tr></table></figure></li>
+<li>打开index.styl文件，搜索post-block,如下<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">post-block &#123;</span><br><span class="line">  background: var(--content-bg-color);</span><br><span class="line">  border-radius: $border-radius-inner;</span><br><span class="line">  box-shadow: $box-shadow-inner;</span><br><span class="line">  padding: $content-desktop-padding;</span><br></pre></td></tr></table></figure></li>
+<li>修改background，如下<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">background: rgba(255,255,255,0.8);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>rgba：css中颜色表示的方法之一</p>
+<p>r：Red；g：Green；b：Blue；a：alpha</p>
+<p>alpha：指定了颜色的不透明度，参数在0~1之间，数值越大，越不透明</p>
+</blockquote>
+</li>
+</ol>
+<hr>
+<h2 id="添加鼠标点击爱心特效"><a href="#添加鼠标点击爱心特效" class="headerlink" title="添加鼠标点击爱心特效"></a>添加鼠标点击爱心特效</h2><ol>
+<li>打开如下文件目录，新建文件夹”src”<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">E:\blog\themes\next\source\js     //在js下我没有src，所以我自己创建了，如果有，直接打开</span><br></pre></td></tr></table></figure></li>
+<li>在文件夹src中新建文件”clicklove.js”<blockquote>
+<p>方法一：通过新建text文件转换格式得到</p>
+<p>方法二：直接在此目录下打开git bash here，通过指令新建</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ touch clicklove.js    //创建文件</span><br></pre></td></tr></table></figure></li>
+<li>在clicklove.js中输入如下代码<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">!function(e,t,a)&#123;function n()&#123;c(&quot;.heart&#123;width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);&#125;.heart:after,.heart:before&#123;content: &#x27;&#x27;;width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;&#125;.heart:after&#123;top: -5px;&#125;.heart:before&#123;left: -5px;&#125;&quot;),o(),r()&#125;function r()&#123;for(var e=0;e&lt;d.length;e++)d[e].alpha&lt;=0?(t.body.removeChild(d[e].el),d.splice(e,1)):(d[e].y--,d[e].scale+=.004,d[e].alpha-=.013,d[e].el.style.cssText=&quot;left:&quot;+d[e].x+&quot;px;top:&quot;+d[e].y+&quot;px;opacity:&quot;+d[e].alpha+&quot;;transform:scale(&quot;+d[e].scale+&quot;,&quot;+d[e].scale+&quot;) rotate(45deg);background:&quot;+d[e].color+&quot;;z-index:99999&quot;);requestAnimationFrame(r)&#125;function o()&#123;var t=&quot;function&quot;==typeof e.onclick&amp;&amp;e.onclick;e.onclick=function(e)&#123;t&amp;&amp;t(),i(e)&#125;&#125;function i(e)&#123;var a=t.createElement(&quot;div&quot;);a.className=&quot;heart&quot;,d.push(&#123;el:a,x:e.clientX-5,y:e.clientY-5,scale:1,alpha:1,color:s()&#125;),t.body.appendChild(a)&#125;function c(e)&#123;var a=t.createElement(&quot;style&quot;);a.type=&quot;text/css&quot;;try&#123;a.appendChild(t.createTextNode(e))&#125;catch(t)&#123;a.styleSheet.cssText=e&#125;t.getElementsByTagName(&quot;head&quot;)[0].appendChild(a)&#125;function s()&#123;return&quot;rgb(&quot;+~~(255*Math.random())+&quot;,&quot;+~~(255*Math.random())+&quot;,&quot;+~~(255*Math.random())+&quot;)&quot;&#125;var d=[];e.requestAnimationFrame=function()&#123;return e.requestAnimationFrame||e.webkitRequestAnimationFrame||e.mozRequestAnimationFrame||e.oRequestAnimationFrame||e.msRequestAnimationFrame||function(e)&#123;setTimeout(e,1e3/60)&#125;&#125;(),n()&#125;(window,document);</span><br></pre></td></tr></table></figure></li>
+<li>在下列目录中，打开layout.swig文件<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">E:\blog\themes\next\layout</span><br></pre></td></tr></table></figure></li>
+<li>在layout.swig的末尾，输入如下代码<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!-- 页面点击小红心 --&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;/js/src/clicklove.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="添加页面宠物"><a href="#添加页面宠物" class="headerlink" title="添加页面宠物"></a>添加页面宠物</h2><ol>
+<li>用管理员身份打开命令提示符，进入blog目录，输入下列语句<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -save hexo-helper-live2d</span><br></pre></td></tr></table></figure></li>
+<li>在次输入下列语句，选取模型<a href="https://github.com/xiazeyu/live2d-widget-models">live2d</a><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install live2d-widget-model-wanko   //wanko是其中的一个模型，可以自己任意选取</span><br></pre></td></tr></table></figure></li>
+<li>打开站点配置文件，在末尾加入下列代码<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">live2d:</span><br><span class="line">  enable: true</span><br><span class="line">  scriptFrom: local</span><br><span class="line">  pluginRootPath: live2dw/</span><br><span class="line">  pluginJsPath: lib/</span><br><span class="line">  pluginModelPath: assets/</span><br><span class="line">  tagMode: false</span><br><span class="line">  model:</span><br><span class="line">    use: live2d-widget-model-wanko  #选择哪种模型</span><br><span class="line">  display: #放置位置和大小</span><br><span class="line">    position: right</span><br><span class="line">    width: 150</span><br><span class="line">    height: 300</span><br><span class="line">  mobile:</span><br><span class="line">    show: false #是否在手机端显示</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="代码块样式设计"><a href="#代码块样式设计" class="headerlink" title="代码块样式设计"></a>代码块样式设计</h2><ol>
+<li>添加代码行号<blockquote>
+<p>打开站点配置文件</p>
+<p>搜索highlight，修改条件如下</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">highlight:</span><br><span class="line">  enable: true    //是否开启代码高亮</span><br><span class="line">  line_number: true     //增加代码行号</span><br><span class="line">  auto_detect: false    //自动判断代码语言</span><br><span class="line">  tab_replace: &#x27;&#x27;       </span><br><span class="line">  wrap: true            </span><br><span class="line">  hljs: false           </span><br></pre></td></tr></table></figure></li>
+<li>设计代码块的主题<blockquote>
+<p>打开主题配置文件</p>
+<p>搜索highlight，修改条件如下</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">highlight_theme: night      //将normal修改为night</span><br><span class="line">  # Add copy button on codeblock</span><br><span class="line">  copy_button:</span><br><span class="line">    enable: true            //将false修改为true，允许复制</span><br><span class="line">    # Show text copy result.</span><br><span class="line">    show_result: true</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="站点文章搜索功能"><a href="#站点文章搜索功能" class="headerlink" title="站点文章搜索功能"></a>站点文章搜索功能</h2><ol>
+<li>在blog目录下以管理员身份打开终端，输入下列代码<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ npm install hexo-generator-searchdb --save    //在blog目录下安装hexo-generator-searchdb插件</span><br></pre></td></tr></table></figure></li>
+<li>打开站点配置文件，搜索Extensions，在下面添加<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 搜索</span><br><span class="line">search:</span><br><span class="line">  path: search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10000</span><br></pre></td></tr></table></figure></li>
+<li>打开主题配置文件，搜索Local_search，将enable的值修改为true</li>
+</ol>
+<hr>
+<h2 id="其他修改"><a href="#其他修改" class="headerlink" title="其他修改"></a>其他修改</h2><ol>
+<li>扩大博客头部<blockquote>
+<p>打开如下目录，修改如下</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">E:\blog\themes\next\source\css\_schemes\Pisces    //文件目录，打开_header.styl文件</span><br><span class="line">//修改如下：</span><br><span class="line">.site-meta &#123;</span><br><span class="line">  padding: 40px 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>添加右上角github绑带<blockquote>
+<p>打开主题配置文件</p>
+<p>搜索github_banner，修改如下</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">github_banner:</span><br><span class="line">  enable: true    //改为true</span><br><span class="line">  permalink: https://github.com/yourname</span><br><span class="line">  title: Follow me on GitHub</span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>博客学习</category>
+      </categories>
+      <tags>
+        <tag>HTML</tag>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo操作</title>
+    <url>/2022/03/19/hello-world/</url>
+    <content><![CDATA[<blockquote>
+<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.<br>欢迎来到<strong>Hexo</strong>，这是你的第一篇博文，点击<strong>documentation</strong>可以获得更多信息。</p>
+<p>如果你在使用<strong>Hexo</strong>的过程中遇到任何问题,你可以在<strong>troubleshooting</strong>上寻求答案，或者在<strong>Github</strong>上询问<strong>我</strong></p>
+<p><strong>Hexo</strong>的作者是台湾人@tommy351</p>
+<p><strong>Hexo</strong>是基于<strong>Node.js</strong>的静态博客程序</p>
+</blockquote>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><blockquote>
+<p>首先在Blog目录下打开 <strong>Git Bash Here</strong></p>
+</blockquote>
+<h4 id="Create-a-new-post命令"><a href="#Create-a-new-post命令" class="headerlink" title="Create a new post命令"></a>Create a new post命令</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ hexo new post &quot;title&quot;  //创建一篇博文</span><br></pre></td></tr></table></figure>
+<h4 id="Create-a-new-page命令"><a href="#Create-a-new-page命令" class="headerlink" title="Create a new page命令"></a>Create a new page命令</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ hexo new page &quot;title&quot;  //创建一个分类或标签</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>以上仅仅是在目录中创建了文件，内容为空</p>
+<p>Win10进入对应目录，打开相应文件进行编写  </p>
+</blockquote>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h4 id="运行与上传"><a href="#运行与上传" class="headerlink" title="运行与上传"></a>运行与上传</h4><blockquote>
+<p>首先在Blog目录下打开<strong>Git Bash here</strong></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean    //清除缓存文件，必须的步骤</span><br><span class="line">$ hexo server   //在本地云端试运行，运行无误就可以上传,一般简写为 hexo s</span><br><span class="line">$ hexo generate //生成静态文件，一般简写为 hexo g</span><br><span class="line">$ hexo deploy   //上传到远端，一般简写为 hexo d</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在确认无误的情况下，后两条命令可以组合</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ hexo g -d</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<hr>
+<h2 id="分类和标签的使用"><a href="#分类和标签的使用" class="headerlink" title="分类和标签的使用"></a>分类和标签的使用</h2><h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ hexo new page &quot;title&quot;     //回车后可以看到具体在哪个目录</span><br></pre></td></tr></table></figure>
+<h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><ul>
+<li>进入page所在的目录，打开对应文件，增加一行参数<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">type: categories    //page作为分类使用</span><br><span class="line">or</span><br><span class="line">type: tags      //page作为标签使用</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>一个<strong>page</strong>只能有一个type</p>
+</blockquote>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><blockquote>
+<p>在写博文的时候，在title下面增加categories or tags，下面举个例子</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">title: hexo操作</span><br><span class="line">description: 使用hexo创建文章，hexo自建     //增加description可以使文章在这里阶段</span><br><span class="line">categories:</span><br><span class="line">- 博客学习      //增加分类，hexo只能有一个同级分类，如果增加多个分类，会变为子父形式</span><br><span class="line">tags:</span><br><span class="line">- hexo          //增加标签，hexo可以增加多个标签</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+]]></content>
+      <categories>
+        <category>博客学习</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown语法</title>
+    <url>/2022/03/20/Markdown%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<h4 id="官方网站"><a href="#官方网站" class="headerlink" title="官方网站"></a>官方网站</h4><p><a href="https://markdown.com.cn/basic-syntax/">Markdown</a></p>
+<hr>
+<h3 id="markdown概述"><a href="#markdown概述" class="headerlink" title="markdown概述"></a>markdown概述</h3><blockquote>
+<p>markdown是一种轻量级标记语言，可以和HTML混用</p>
+<p>Markdown被广泛地使用在github，wikipedia，简书中</p>
+<p>Markdown可导出HTML，PDF，.md文件</p>
+</blockquote>
+<hr>
+<h4 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h4><ol>
+<li>标题语法</li>
+</ol>
+<ul>
+<li>用*#*的多少来表示，1~6个<ul>
+<li>举例：“# 标题”</li>
+</ul>
+</li>
+<li>HTML中标题用“h1~h6”来表示</li>
+</ul>
+<ol start="2">
+<li>段落语法</li>
+</ol>
+<ul>
+<li>用<strong>空白行</strong>将一行或多行进行分隔</li>
+</ul>
+<ol start="3">
+<li>换行语法</li>
+</ol>
+<ul>
+<li>在一行的末尾添加<strong>两个或多个空格</strong>，然后按回车键，即可创建一个换行</li>
+</ul>
+<ol start="4">
+<li>强调语法</li>
+</ol>
+<ul>
+<li>粗体  <ul>
+<li>在单词或短语的前后添加两个<strong>星号或下划线</strong></li>
+</ul>
+</li>
+<li>斜体<ul>
+<li>在单词或短语的前后添加一个<strong>星号或下划线</strong></li>
+</ul>
+</li>
+</ul>
+<ol start="5">
+<li>引用</li>
+</ol>
+<ul>
+<li>块引用<blockquote>
+<p>这是一个块引用</p>
+</blockquote>
+</li>
+<li>多个段落的块引用<blockquote>
+<p>Bear-zxk</p>
+<p>time:2022.3.20</p>
+</blockquote>
+</li>
+<li>嵌套使用的块引用<blockquote>
+<h4 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h4><p>authour:Bear-zxk</p>
+<ul>
+<li>Profession: Student</li>
+<li>School: CTGU<blockquote>
+<p>备注：Information</p>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<ol start="6">
+<li>列表语法</li>
+</ol>
+<ul>
+<li>有序列表<blockquote>
+<p>使用阿拉伯数字表示，后面加英文状态下的句号</p>
+</blockquote>
+</li>
+<li>无序列表<blockquote>
+<p>使用“*，+，-”表示，在符号后面一定要加一个空格，使用无序列表时可以嵌套使用</p>
+</blockquote>
+</li>
+</ul>
+<ol start="7">
+<li>代码语法</li>
+</ol>
+<ul>
+<li>单反引号，代码块不包含引号</li>
+<li>双反引号，代码块自身包含引号</li>
+<li>还有扩展语法，用于高亮表示等</li>
+</ul>
+<ol start="8">
+<li>分隔线语法<blockquote>
+<p>单独行使用连续三个*，-，_</p>
+</blockquote>
+</li>
+<li>链接</li>
+</ol>
+<ul>
+<li>基本语法：<a href="%E7%BD%91%E5%9D%80">链接名称</a></li>
+<li>将网址或URL变为可点击链接：用尖括号<blockquote>
+<p><a href="https://www.w3school.com.cn/">https://www.w3school.com.cn/</a></p>
+<p><a href="https://github.com/">https://github.com/</a></p>
+</blockquote>
+</li>
+<li>其他链接方式有需要再详述</li>
+</ul>
+<ol start="10">
+<li>图片语法<blockquote>
+<p>举例：<a href="https://cn.bing.com/images/search?q=%E9%A3%8E%E6%99%AF&form=IQFRBA&id=9EAFA85DAAC58412AB0BD8EB10A0A93B42D9FD99&first=1&disoverlay=1">风景画</a></p>
+</blockquote>
+</li>
+</ol>
+<hr>
+]]></content>
+      <categories>
+        <category>语言学习</category>
+      </categories>
+      <tags>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>博客的创建</title>
+    <url>/2022/03/19/%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%88%9B%E5%BB%BA/</url>
+    <content><![CDATA[<h4 id="创建博客的缘由"><a href="#创建博客的缘由" class="headerlink" title="创建博客的缘由"></a>创建博客的缘由</h4><ul>
+<li>第一次Java高级作业–创建自己的博客页面</li>
+</ul>
+<hr>
+<h4 id="需要的工具"><a href="#需要的工具" class="headerlink" title="需要的工具"></a>需要的工具</h4><ul>
+<li>nodejs，hexo，github，git</li>
+</ul>
+<hr>
+<h4 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h4><ul>
+<li>注册github账号，需要邮箱，学习github的简单使用</li>
+<li>安装git，官网下载</li>
+<li>绑定github，git上传文件到github首先需要ssh登录远程主机，我们选择公钥登录，将公钥的内容添加到github</li>
+<li>需要注意：在git中，复制是Ctrl+insert，粘贴是shift+insert</li>
+<li>向github中提交文件，采用的方式是先在本地创建文件夹，再连接到github仓库</li>
+<li>为了更加专业性，可以购买域名，在万网上可以实现，但是现在购买需要身份注册，需要身份证照片</li>
+<li>安装nodejs，和普通软件一样，下载安装</li>
+<li>安装hexo，在win10终端中安装(需要管理员权限)，需要学习简单的DOS命令</li>
+<li>在终端完成本地blog文件夹的初始化，并通过hexo进行上传</li>
+<li>解析域名，将其与github中仓库连接</li>
+<li>设置主题，自定义样式</li>
+<li>博文的书写，需要简单学习markdown，编辑器可以使用vscode</li>
+</ul>
+<hr>
+<h4 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h4><ul>
+<li>知乎 <a href="https://zhuanlan.zhihu.com/p/102592286">枫叶</a></li>
+<li>哔站 <a href="https://space.bilibili.com/384068749">codesheep</a></li>
+<li><a href="https://markdown.com.cn/basic-syntax/">markdown语法</a></li>
+</ul>
+<hr>
+]]></content>
+      <categories>
+        <category>博客学习</category>
+      </categories>
+      <tags>
+        <tag>HTML</tag>
+        <tag>hexo</tag>
+        <tag>css</tag>
+      </tags>
+  </entry>
+</search>
